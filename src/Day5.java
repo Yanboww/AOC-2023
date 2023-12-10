@@ -1,4 +1,4 @@
-//took a long time to run idk I just left it running
+//took a long time to run idk I just left it running and watched YouTube
 /*import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -192,19 +192,14 @@ public class Day5 {
                     if(!valid.contains(value))
                     {
                         valid.add(value);
-                        System.out.println(valid.size());
+                        //System.out.println(valid.size());
 
                     }
-                    else if(valid.contains(Double.toString(z+1)) && valid.contains(Double.toString(last)))
-                    {
-                        break;
-                    }
-
                 }
                 num="";
                 count=1;
                 current = 0;
-                System.out.println(valid);
+                //System.out.println(valid);
             }
         }
         return valid;

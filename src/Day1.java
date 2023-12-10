@@ -7,7 +7,7 @@ public class Day1 {
         File f;
         try{
             int total = 0;
-            f = new File("inputFile");
+            f = new File("InputFile");
             Scanner s = new Scanner(f);
             String intList = "1234567890";
             while (s.hasNextLine())
