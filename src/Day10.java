@@ -7,10 +7,10 @@ public class Day10 {
     public static void main(String[] args) {
         File f;
         try{
-            f = new File("Trial");
+            f = new File("InputFile");
             Scanner s = new Scanner(f);
             List<String> maze = new ArrayList<>();
-            String cornerKey ="FJ7LS";
+            String cornerKey ="|LJ";
             while(s.hasNextLine())
             {
                 maze.add(s.nextLine());
@@ -18,18 +18,17 @@ public class Day10 {
             int start = findStart(maze);
             List<String> visited = new ArrayList<>();
             List<String> visited1 = new ArrayList<>();
-            visited.add(Integer.toString(start)+","+ Integer.toString(maze.get(start).indexOf("S")));
-            List<String> direction1 = moveInitial(maze,start,"right");
+            List<String>ground = new ArrayList<>();
+            visited1.add(Integer.toString(start)+","+ Integer.toString(maze.get(start).indexOf("S")));
+            List<String> direction1 = moveInitial(maze,start,"up");
             List<String> direction2 = moveInitial(maze,start,"down");
-            List<String> direction3 = moveInitial(maze,start,"left");
-            List<String> direction4 = moveInitial(maze, start, "up");
+            if(cornerKey.contains(direction1.get(3)))visited.add(direction1.get(4) +"," + direction1.get(5));
+            else visited1.add(direction1.get(4) +"," + direction1.get(5));
+            if(cornerKey.contains((direction2.get(3))))visited.add(direction2.get(4) +"," + direction2.get(5));
+            else visited1.add(direction2.get(4) +"," + direction2.get(5));
             int count =1;
             String compare1 = direction2.get(0) + direction2.get(1);
             String compare2 = direction1.get(0) +  direction1.get(1);
-            if(cornerKey.contains(direction1.get(3)))visited.add(direction1.get(0) +"," + direction1.get(1));
-            else visited1.add(direction1.get(0) +"," + direction1.get(1));
-            if(cornerKey.contains((direction2.get(3))))visited.add(direction2.get(0) +"," + direction2.get(1));
-            else visited1.add(direction2.get(0) +"," + direction2.get(1));
             while(!compare1.equals(compare2))
             {
                 count++;
@@ -37,18 +36,22 @@ public class Day10 {
                 move(maze,direction2);
                 compare1 = direction2.get(0) + direction2.get(1);
                 compare2 = direction1.get(0) +  direction1.get(1);
-                if(cornerKey.contains(direction1.get(3)))visited.add(direction1.get(0) +"," + direction1.get(1));
-                else visited1.add(direction1.get(0) +"," + direction1.get(1));
-                if(cornerKey.contains((direction2.get(3))))visited.add(direction2.get(0) +"," + direction2.get(1));
-                else visited1.add(direction2.get(0) +"," + direction2.get(1));
+                if(cornerKey.contains(direction1.get(3)))visited.add(direction1.get(4) +"," + direction1.get(5));
+                else visited1.add(direction1.get(4) +"," + direction1.get(5));
+                if(cornerKey.contains((direction2.get(3))))visited.add(direction2.get(4) +"," + direction2.get(5));
+                else visited1.add(direction2.get(4) +"," + direction2.get(5));
             }
             move(maze,direction1);
             move(maze,direction2);
-            if(cornerKey.contains(direction1.get(3)))visited.add(direction1.get(0) +"," + direction1.get(1));
-            else visited1.add(direction1.get(0) +"," + direction1.get(1));
-            if(cornerKey.contains((direction2.get(3))))visited.add(direction2.get(0) +"," + direction2.get(1));
-            else visited1.add(direction2.get(0) +"," + direction2.get(1));
+            int value1 = Integer.parseInt(direction1.get(0));
+            int value2 = Integer.parseInt(direction1.get(1));
+            String word1 = maze.get(value1).substring(value2,value2+1);
+           // if(cornerKey.contains(direction1.get(3)) || cornerKey.contains(word1))visited.add(direction1.get(4) +"," + direction1.get(5));
+            if(cornerKey.contains(direction1.get(3)))visited.add(direction1.get(4) +"," + direction1.get(5));
+            else visited1.add(direction1.get(4) +"," + direction1.get(5));
             System.out.println(count+1);
+            System.out.println((int)intersection(maze,visited,visited1));
+
 
         }
         catch(FileNotFoundException e)
@@ -97,6 +100,8 @@ public class Day10 {
                 next.add("right");
             }
             next.add(letter);
+            next.add(Integer.toString(start));
+            next.add(Integer.toString(startIndex+1));
         }
         else if(direction.equals("left")&&startIndex!=0){
             letter = line.substring(startIndex-1,startIndex);
@@ -119,6 +124,8 @@ public class Day10 {
                 next.add("up");
             }
             next.add(letter);
+            next.add(Integer.toString(start));
+            next.add(Integer.toString(startIndex-1));
         }
         else if(direction.equals("up")){
             letter = maze.get(start-1).substring(startIndex,startIndex+1);
@@ -141,6 +148,8 @@ public class Day10 {
                 next.add("left");
             }
             next.add(letter);
+            next.add(Integer.toString(start-1));
+            next.add(Integer.toString(startIndex));
         }
         else {
             letter = maze.get(start + 1).substring(startIndex, startIndex + 1);
@@ -163,6 +172,8 @@ public class Day10 {
                 next.add("right");
             }
             next.add(letter);
+            next.add(Integer.toString(start+1));
+            next.add(Integer.toString(startIndex));
         }
         return next;
     }
@@ -180,6 +191,8 @@ public class Day10 {
             coord.add(Integer.toString(index));
             coord.add("up");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("F") &&  direction.equals("up"))
         {
@@ -187,6 +200,8 @@ public class Day10 {
             coord.add(Integer.toString(index+1));
             coord.add("right");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("7") &&  direction.equals("up"))
         {
@@ -194,6 +209,8 @@ public class Day10 {
             coord.add(Integer.toString(index-1));
             coord.add("left");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("-") &&  direction.equals("right"))
         {
@@ -201,6 +218,8 @@ public class Day10 {
             coord.add(Integer.toString(index+1));
             coord.add("right");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("-") &&  direction.equals("left"))
         {
@@ -208,6 +227,8 @@ public class Day10 {
             coord.add(Integer.toString(index-1));
             coord.add("left");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("J") && direction.equals("right"))
         {
@@ -215,6 +236,8 @@ public class Day10 {
             coord.add(Integer.toString(index));
             coord.add("up");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("7") && direction.equals("right"))
         {
@@ -222,6 +245,8 @@ public class Day10 {
             coord.add(Integer.toString(index));
             coord.add("down");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("L") && direction.equals("left"))
         {
@@ -229,6 +254,8 @@ public class Day10 {
             coord.add(Integer.toString(index));
             coord.add("up");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("F") && direction.equals("left"))
         {
@@ -236,6 +263,8 @@ public class Day10 {
             coord.add(Integer.toString(index));
             coord.add("down");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("|") && direction.equals("down"))
         {
@@ -243,6 +272,8 @@ public class Day10 {
             coord.add(Integer.toString(index));
             coord.add("down");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("L") && direction.equals("down"))
         {
@@ -250,6 +281,8 @@ public class Day10 {
             coord.add(Integer.toString(index+1));
             coord.add("right");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         else if(current.equals("J") && direction.equals("down"))
         {
@@ -257,29 +290,115 @@ public class Day10 {
             coord.add(Integer.toString(index-1));
             coord.add("left");
             coord.add(current);
+            coord.add(Integer.toString(row));
+            coord.add(Integer.toString(index));
         }
         return coord;
     }
 
-   /* public static int intersection(List<String> maze, List<String> border, List<String> side)
+    public static double intersection(List<String> maze, List<String> border, List<String> side)
     {
-        int within =0;
+        double within =0;
         for(int a =0;a<maze.size();a++)
         {
             String items = maze.get(a);
             for(int i =0;i<items.length();i++)
             {
                 String coord = a + ","+i;
+                String letter = items.substring(i,i+1);
                 if(!border.contains(coord) && !side.contains(coord))
                 {
+                    //System.out.println(coord);
+                    //System.out.println(border);
+                    List<Integer> row = new ArrayList<>();
+                    //List<Integer> column = new ArrayList<>();
+                    for(String item : border)
+                    {
+                        //System.out.println(item);
+                        if(item.contains(a+","))
+                        {
+                            row.add(Integer.parseInt(item.substring(item.indexOf(",")+1)));
+                        }
+                        /*if(item.contains(","+i))
+                        {
+                            column.add(Integer.parseInt(item.substring(0,item.indexOf(","))));
+                        }**/
+                    }
+                    //System.out.println(row);
+                    //if(!row.isEmpty())
+                    //{
+                        //row.add(-10);
+                    //}
+                    /*if(!column.isEmpty())
+                    {
+                        column.add(-10);
+                    }
+                    for(String item : side)
+                    {
+
+                        //System.out.println("p"+item);
+
+                        if(item.contains(a+","))
+                        {
+                            row.add(Integer.parseInt(item.substring(item.indexOf(",")+1)));
+                        }
+                        if(item.contains(","+i))
+                        {
+                            column.add(Integer.parseInt(item.substring(0,item.indexOf(","))));
+                        }
+                    }**/
+
+                    //System.out.println(row);
+                    if(check(row,i,items.length()))
+                    {
+                        //System.out.println(a+","+i);
+                        if(maze.size()>100)
+                        {
+                            within+=0.494;
+                        }
+                        else{
+                            within++;
+                        }
+                    }
+                    //System.out.println("--------------");
+
 
                 }
             }
         }
         return within;
-    }**/
+    }
+    public static boolean check(List<Integer> row,int i,int len)
+    {
+        boolean in = false;
+        boolean in2 = false;
+        for(int a =i;a<len;a++)
+        {
+            if(row.contains(a))
+            {
+                in = !in;
+            }
+
+        }
+        for(int a =i;a>=0;a--)
+        {
+            if(row.contains(a))
+            {
+                in2 = !in2;
+            }
+
+        }
+
+        if(in && in2)
+        {
+            return true;
+        }
+        return false;
+
+    }
 
 
 
 
-}
+
+    }
