@@ -7,7 +7,7 @@ public class Day14{
     public static void main(String[] args) {
         File f;
         try{
-            f = new File("Trial");
+            f = new File("InputFile");
             Scanner s = new Scanner(f);
             List<String> input = new ArrayList<>();
             while(s.hasNextLine())
@@ -15,11 +15,26 @@ public class Day14{
                 input.add(s.nextLine());
             }
             System.out.println(findNorthWeight(input));
-            System.out.println(north(input));
             List<String> north = north(input);
-            System.out.println(west(north));
             List<String> west = west(north);
-
+            List<String> south = south(west);
+            List<String> east = east(south);
+            List<String> start = east;
+            int count =1;
+            for(int i =0; i<999;i++)
+            {
+                //System.out.println(count);
+                north = north(east);
+                west = west(north);
+                south = south(west);
+                east = east(south);
+                count++;
+                if(east.equals(start))
+                {
+                    break;
+                }
+            }
+            System.out.println(getWeight(east));
         }
         catch(FileNotFoundException e)
         {
@@ -161,7 +176,109 @@ public class Day14{
         return west;
     }
 
+    public static List<String> south(List<String> input)
+    {
+        List<String> column = getColumn(input);
+        List<String> south = new ArrayList<>();
+        for(String item : column)
+        {
+            while(item.contains("7"))
+            {
+                int index = item.lastIndexOf("7");
+                for(int i =index;i<item.length();i++)
+                {
+                    String letter = item.substring(i,i+1);
+                    if(letter.equals("#") || letter.equals("6"))
+                    {
+                        item = item.substring(0,i-1) + "6" + item.substring(i);
+                        if(i-1!=index)
+                        {
+                            item = item.substring(0,index) +"."+item.substring(index+1);
+                        }
+                        break;
+                    }
+                    else if(i==item.length()-1)
+                    {
+                        item = item.substring(0,item.length()-1) +"6";
+                        if(index != item.length()-1)
+                        {
+                            item = item.substring(0,index)+"."+item.substring(index+1);
+                        }
+                        break;
+                    }
+                }
+            }
+            south.add(item);
 
+        }
+        return getColumn(south);
+    }
+
+    public static List<String> east(List<String> input)
+    {
+        List<String> east = new ArrayList<>();
+        for(String item : input)
+        {
+            int len = item.length();
+            while(item.contains("6"))
+            {
+                int index = item.lastIndexOf("6");
+                for(int i =index;i<len;i++)
+                {
+                    String letter = item.substring(i,i+1);
+                    if(letter.equals("#") || letter.equals("O"))
+                    {
+                        item = item.substring(0,i-1) + "O" + item.substring(i);
+                        if(i-1!=index)
+                        {
+                            item = item.substring(0,index) +"."+item.substring(index+1);
+                        }
+                        break;
+                    }
+                    else if(i==len-1)
+                    {
+                        item = item.substring(0,len-1)+"O";
+                        if(index !=len-1)
+                        {
+                            item = item.substring(0,index)+"."+item.substring(index+1);
+                        }
+                        break;
+                    }
+                }
+            }
+            east.add(item);
+
+        }
+        return east;
+    }
+
+    public static int getWeight(List<String> input)
+    {
+        List<String> column = getColumn(input);
+        int total =0;
+        for(String items: column)
+        {
+            int len = items.length();
+           while(items.contains("O"))
+           {
+               int index = items.indexOf("O");
+               total+=len-index;
+               if(index==0)
+               {
+                   items = "." + items.substring(1);
+               }
+               else if(index == len-1)
+               {
+                   items = items.substring(0,index-1) + ".";
+               }
+               else{
+                   items = items.substring(0,index) + "." + items.substring(index+1);
+               }
+           }
+
+        }
+        return total;
+    }
 
 
 
