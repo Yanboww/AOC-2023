@@ -1,4 +1,4 @@
-/*import java.io.FileNotFoundException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -13,7 +13,6 @@ public class Day13Part2 {
             Scanner s = new Scanner(f);
             List<String> input = new ArrayList<>();
             int total =0;
-            int totalP1 = 0;
             while(s.hasNextLine())
             {
                 String line = s.nextLine();
@@ -39,12 +38,11 @@ public class Day13Part2 {
                     //newInput = getRow(newColumn);
                 }
                 //System.out.println("map:"+count);
-                total+=mirror(newInput,newColumn,input,column);
+                total+=mirror(newInput,newColumn,input,column,total);
                 input.subList(0,input.indexOf(" ")+1).clear();
                 newInput.subList(0,newInput.indexOf(" ")+1).clear();
                 count++;
             }
-            System.out.println(totalP1);
             System.out.println(total);
 
 
@@ -100,7 +98,7 @@ public class Day13Part2 {
     }
 
 
-    public static int mirror(List<String> input, List<String> column, List<String> oldInput, List<String>oColumn)
+    public static int mirror(List<String> input, List<String> column, List<String> oldInput, List<String>oColumn, int tot)
     {
         List<String> inputReplace = input.subList(0, input.indexOf(" "));
         int total =0;
@@ -142,6 +140,15 @@ public class Day13Part2 {
                     total+=b+1;
                     answered=1;
                 }
+            }
+        }
+        if(tot>30000)
+        {
+            int index = input.indexOf(" ");
+            int index2 = input.lastIndexOf(" ");
+            if(index==index2)
+            {
+                total+=101;
             }
         }
         return total;
@@ -233,7 +240,7 @@ public class Day13Part2 {
                        else{
                            replacement.clear();
                        }**/
-                   /* }
+                    }
                     c--;
                     d++;
                 }
@@ -319,4 +326,4 @@ public class Day13Part2 {
 
 
 
-}**/
+}

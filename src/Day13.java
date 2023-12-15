@@ -1,4 +1,4 @@
-import java.io.FileNotFoundException;
+/*import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -36,6 +36,7 @@ public class Day13 {
                 count++;
             }
             System.out.println(total);
+            System.out.println(file);
 
 
 
@@ -84,8 +85,10 @@ public class Day13 {
                     if(answered ==1)
                     {
                         total =0;
+                        file.remove(file.size()-1);
                     }
                     total+=(a+1)*100;
+                    file.add(a+1 +"r");
                     answered=1;
                     //System.out.println(a+1+"h");
                 }
@@ -105,13 +108,16 @@ public class Day13 {
                     if(answered ==1)
                     {
                         total=0;
+                        file.remove(file.size()-1);
                     }
                     //System.out.println(b+1 +"c");
                     total+=b+1;
+                    file.add(b+1+"c");
                     answered=1;
                 }
             }
         }
+        file.add(" ");
         return total;
     }
 
@@ -147,7 +153,7 @@ public class Day13 {
     }
 
 
-}
+}**/
 
 
 
