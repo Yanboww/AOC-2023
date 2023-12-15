@@ -1,4 +1,4 @@
-import java.io.FileNotFoundException;
+/*import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -323,7 +323,7 @@ public class Day10 {
                         {
                             column.add(Integer.parseInt(item.substring(0,item.indexOf(","))));
                         }**/
-                    }
+                    //}
                     //System.out.println(row);
                     //if(!row.isEmpty())
                     //{
@@ -349,7 +349,7 @@ public class Day10 {
                     }**/
 
                     //System.out.println(row);
-                    if(check(row,i,items.length()))
+                    /*if(check(row,i,items.length()))
                     {
                         //System.out.println(a+","+i);
                         if(maze.size()>100)
@@ -401,4 +401,4 @@ public class Day10 {
 
 
 
-    }
+    }**/
