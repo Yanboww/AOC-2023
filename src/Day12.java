@@ -1,27 +1,36 @@
+//still not very fast but gets the job done
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.util.List;
-public class Day12Part1 {
+import java.util.HashMap;
+public class Day12 {
     public static void main(String[] args) {
         File f;
         try{
-            f = new File("Trial");
+            f = new File("InputFile");
             Scanner s = new Scanner(f);
             List<String> inputs = new ArrayList<>();
+            HashMap<String,Integer> memo = new HashMap<>();
             while(s.hasNextLine())
             {
                 inputs.add(s.nextLine());
             }
             int sum =0;
+            int sumP2 =0;
             for(String items: inputs)
             {
                 String desc = makeDesc(items)+",";
                 String drawing = makeDrawing(items);
-                sum+=findPerm(drawing,desc);
+                sum+=findPerm(drawing,desc,memo);
+                items = makeNewLine(items);
+                desc = makeDesc(items);
+                drawing = makeDrawing(items);
+                sum+=findPerm(drawing,desc,memo);
             }
             System.out.println(sum);
+            System.out.println(sumP2);
         }
         catch (FileNotFoundException e)
         {
@@ -76,7 +85,7 @@ public class Day12Part1 {
     }
 
 
-    public static int findPerm(String drawing, String desc)
+    public static int findPerm(String drawing, String desc, HashMap<String, Integer> key)
     {
         //System.out.println(drawing);
         int unknownCount  = countChar(drawing,"?");
@@ -85,9 +94,11 @@ public class Day12Part1 {
             if(makeDesc2(drawing).equals(desc))return 1;
             return 0;
         }
+        if(key.containsKey(drawing+desc)) return key.get(drawing+desc);
         int sum = 0;
-        sum+=findPerm(replaceOnce(drawing,"?","."),desc);
-        sum+= findPerm(replaceOnce(drawing,"?","#"),desc);
+        sum+=findPerm(replaceOnce(drawing,"?","."),desc, key);
+        sum+= findPerm(replaceOnce(drawing,"?","#"),desc,key);
+        key.put(drawing+desc,sum);
         return sum;
     }
     public static String replaceOnce(String drawing, String target, String replacement)
