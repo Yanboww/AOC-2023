@@ -1,13 +1,14 @@
+//will encounter stackoverflow if stack depth is not increased
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 import java.io.File;
-public class Day16 {
+public class Day16Part1 {
     public static void main(String[] args) {
         File f;
         try{
-            f= new File("InputFile");
+            f= new File("Trial");
             Scanner s = new Scanner(f);
             List<String> inputs = new ArrayList<>();
             List<String> coord = new ArrayList<>();
@@ -36,7 +37,6 @@ public class Day16 {
         if(map.contains(convertCoord(coord))) return possible;
         map.add(convertCoord(coord));
         if(!possible.contains(onlyCoord(coord)))possible.add(onlyCoord(coord));
-        //System.out.println(possible.size());
         int row = Integer.parseInt(coord.get(0));
         int index = Integer.parseInt(coord.get(1));
         String direction = coord.get(2);
