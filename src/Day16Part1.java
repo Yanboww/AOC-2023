@@ -8,7 +8,7 @@ public class Day16Part1 {
     public static void main(String[] args) {
         File f;
         try{
-            f= new File("Trial");
+            f= new File("InputFile");
             Scanner s = new Scanner(f);
             List<String> inputs = new ArrayList<>();
             List<String> coord = new ArrayList<>();
