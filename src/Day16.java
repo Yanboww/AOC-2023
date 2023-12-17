@@ -7,7 +7,7 @@ public class Day16 {
     public static void main(String[] args) {
         File f;
         try{
-            f= new File("Trial");
+            f= new File("InputFile");
             Scanner s = new Scanner(f);
             List<String> inputs = new ArrayList<>();
             List<String> coord = new ArrayList<>();
@@ -17,14 +17,12 @@ public class Day16 {
             {
                 String next = s.nextLine();
                 inputs.add(next);
-                //moveList.add(next);
             }
+            s.close();
             coord.add("0");
             coord.add("0");
             coord.add("right");
             move(inputs,coord,map,possible);
-            //System.out.println(countTags(possible.get(possible.size()-1)));
-            //System.out.println(possible.get(possible.size()-1));
             System.out.println(possible.size());
         }
         catch (FileNotFoundException e)
@@ -35,42 +33,15 @@ public class Day16 {
 
     public static List<String> move(List<String> inputs, List<String> coord, List<String> map, List<String> possible)
     {
-        //System.out.println(coord + "y");
-        //System.out.println(move);
-        //System.out.println("-----");
         if(map.contains(convertCoord(coord))) return possible;
         map.add(convertCoord(coord));
         if(!possible.contains(onlyCoord(coord)))possible.add(onlyCoord(coord));
-        //System.out.println(possible);
-        //System.out.println(coord);
+        //System.out.println(possible.size());
         int row = Integer.parseInt(coord.get(0));
         int index = Integer.parseInt(coord.get(1));
         String direction = coord.get(2);
         coord.clear();
         String moveRow = inputs.get(row);
-        /*if(index==moveRow.length()-1)
-        {
-            moveRow = moveRow.substring(0,index) + "#";
-        }
-        else if(index==0)
-        {
-            moveRow = "#" + moveRow.substring(1);
-        }
-        else{
-            moveRow = moveRow.substring(0,index) + "#" + moveRow.substring(index+1);
-        }**/
-        //System.out.println(move);
-        // System.out.println(moveRow+"  ----------");
-        //move = replaceList(moveRow,move,row);
-        //System.out.println(move);
-        /*String list ="";
-        for(String items: move)
-        {
-            list+=items+",";
-        }**/
-        //possible.add(list);
-        //System.out.println(move);
-        System.out.println(possible.size());
         if(direction.equals("right"))
         {
             String next = inputs.get(row).substring(index,index+1);
@@ -276,22 +247,6 @@ public class Day16 {
         return possible;
     }
 
-    public static List<String> replaceList(String replace, List<String> oldList,int index)
-    {
-        List<String> newList = new ArrayList<>();
-        for(int i =0;i<oldList.size();i++)
-        {
-            if(i!=index)
-            {
-                newList.add(oldList.get(i));
-            }
-            else{
-                newList.add(replace);
-            }
-        }
-        return newList;
-    }
-
     public static String convertCoord(List<String> coord)
     {
         return coord.get(0) + " " + coord.get(1)+" "+coord.get(2);
@@ -300,19 +255,6 @@ public class Day16 {
     {
         return coord.get(0) + " " + coord.get(1);
     }
-
-
-    public static int countTags(String move)
-    {
-        int count = 0;
-        for(int i = 0;i< move.length();i++)
-        {
-            String letter = move.substring(i,i+1);
-            if(letter.equals(",")) count++;
-        }
-        return count;
-    }
-
 
 
 }
