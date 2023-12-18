@@ -1,10 +1,11 @@
 //will encounter stackoverflow if stack depth is not increased
-/*import java.io.FileNotFoundException;
+//naive approach, might revisit later
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 import java.io.File;
-public class Day16Part1 {
+public class Day16 {
     public static void main(String[] args) {
         File f;
         try{
@@ -14,17 +15,60 @@ public class Day16Part1 {
             List<String> coord = new ArrayList<>();
             List<String> map = new ArrayList<>();
             List<String> possible = new ArrayList<>();
+            List<Integer> biggest = new ArrayList<>();
             while(s.hasNextLine())
             {
                 String next = s.nextLine();
                 inputs.add(next);
             }
             s.close();
-            coord.add("0");
-            coord.add("0");
-            coord.add("right");
-            move(inputs,coord,map,possible);
-            System.out.println(possible.size());
+            int length = inputs.get(0).length();
+            int lasRow = inputs.size()-1;
+            for(int i = 0;i<length;i++)
+            {
+                coord.add("0");
+                coord.add(Integer.toString(i));
+                coord.add("down");
+                move(inputs,coord,map,possible);
+                biggest.add(possible.size());
+                possible.clear();
+                map.clear();
+                coord.clear();
+            }
+            for(int i = 0;i<length;i++)
+            {
+                coord.add(Integer.toString(lasRow));
+                coord.add(Integer.toString(i));
+                coord.add("up");
+                move(inputs,coord,map,possible);
+                biggest.add(possible.size());
+                possible.clear();
+                map.clear();
+                coord.clear();
+            }
+            for(int i = 0;i<inputs.size();i++)
+            {
+                coord.add(Integer.toString(i));
+                coord.add("0");
+                coord.add("right");
+                move(inputs,coord,map,possible);
+                biggest.add(possible.size());
+                possible.clear();
+                map.clear();
+                coord.clear();
+            }
+            for(int i = 0;i<inputs.size();i++)
+            {
+                coord.add(Integer.toString(i));
+                coord.add(Integer.toString(length-1));
+                coord.add("left");
+                move(inputs,coord,map,possible);
+                biggest.add(possible.size());
+                possible.clear();
+                map.clear();
+                coord.clear();
+            }
+            System.out.println(findMax(biggest));
         }
         catch (FileNotFoundException e)
         {
@@ -256,5 +300,16 @@ public class Day16Part1 {
         return coord.get(0) + " " + coord.get(1);
     }
 
+    public static int findMax(List<Integer> list)
+    {
+        int max =0;
+        for(int items : list)
+        {
+            if(items>max) max=items;
+        }
+        return max;
+    }
 
-}**/
+
+
+}
