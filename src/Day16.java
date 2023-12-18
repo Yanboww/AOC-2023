@@ -1,6 +1,7 @@
 //will encounter stackoverflow if stack depth is not increased
+//https://stackoverflow.com/questions/3700459/how-to-increase-the-java-stack-size
 //naive approach, might revisit later
-import java.io.FileNotFoundException;
+/*import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -9,7 +10,7 @@ public class Day16 {
     public static void main(String[] args) {
         File f;
         try{
-            f= new File("InputFile");
+            f= new File("Trial");
             Scanner s = new Scanner(f);
             List<String> inputs = new ArrayList<>();
             List<String> coord = new ArrayList<>();
@@ -312,4 +313,4 @@ public class Day16 {
 
 
 
-}
+}**/
