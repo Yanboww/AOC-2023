@@ -176,7 +176,7 @@ public class Day19 {
 
     public static long addThem(List<Integer> list)
     {
-        System.out.println(list);
+        //System.out.println(list);
         long total = 0;
         for(int item : list)
         {
