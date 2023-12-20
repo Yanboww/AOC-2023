@@ -1,10 +1,9 @@
-import javax.print.CancelablePrintJob;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.util.List;
 import java.io.FileNotFoundException;
-public class Day19 {
+public class Day19Part1 {
     public static void main(String[] args) {
         File f;
         try{
