@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.util.List;
@@ -185,4 +185,4 @@ public class Day19Part1 {
     }
 
 
-}
+}**/
