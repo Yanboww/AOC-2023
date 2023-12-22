@@ -1,12 +1,10 @@
-import jdk.jshell.spi.ExecutionControl;
-
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-public class Day20 {
+public class Day20Part1 {
     public static void main(String[] args) {
         File f;
         try{
@@ -181,4 +179,4 @@ public class Day20 {
     }
 
 
-}
+}**/
